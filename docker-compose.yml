@@ -20,7 +20,9 @@ services:
   redis:
     image: redis
   postgres:
-    image: postgres
+    image: postgres:13
+    volumes:
+      - .data/postgresql/data:/var/lib/postgresql/data:z
     environment:
       - POSTGRES_DB=test_db
       - POSTGRES_USER=bitquest
