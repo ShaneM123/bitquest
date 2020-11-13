@@ -1,20 +1,29 @@
-spigot:
-  container_name: bitquest
-  build: .
-  volumes:
-    - "./target/BitQuest.jar:/spigot/plugins/BitQuest.jar"
-  ports:
-    - "25565:25565"
-  environment:
-    - BLOCKCYPHER_CHAIN=btc/test3
-    - DENOMINATION_NAME=TestBits
-  links:
-    - redis
-    - postgres
-redis:
-  image: redis
-postgres:
-  image: postgres
-  environment:
-    - POSTGRES_USER=bitquest
-    - POSTGRES_PASSWORD=ORLY
+version: '3'
+
+services:
+  spigot:
+    container_name: bitquest
+    build: .
+    ports:
+      - "25565:25565"
+    environment:
+      - BLOCKCYPHER_CHAIN=btc/test3
+      - DENOMINATION_NAME=TestBits
+      - POSTGRES_ENV_POSTGRES_USER=bitquest
+      - POSTGRES_ENV_POSTGRES_PASSWORD=ORLY
+      - POSTGRES_PORT_5432_TCP_ADDR=postgres
+      - POSTGRES_PORT_5432_TCP_PORT=5432
+      - POSTGRES_PORT_5432_TCP_DBNAME=test_db
+    links:
+      - redis
+      - postgres
+  redis:
+    image: redis
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_DB=test_db
+      - POSTGRES_USER=bitquest
+      - POSTGRES_PASSWORD=ORLY
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    

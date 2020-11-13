@@ -77,7 +77,7 @@ public class BitQuest extends JavaPlugin {
   public static final String REDIS_HOST =
       System.getenv("REDIS_PORT_6379_TCP_ADDR") != null
           ? System.getenv("REDIS_PORT_6379_TCP_ADDR")
-          : "localhost";
+          : "redis";
   public static final Integer REDIS_PORT =
       System.getenv("REDIS_PORT_6379_TCP_PORT") != null
           ? Integer.parseInt(System.getenv("REDIS_PORT_6379_TCP_PORT"))
@@ -122,8 +122,8 @@ public class BitQuest extends JavaPlugin {
           + ":"
           + System.getenv("POSTGRES_PORT_5432_TCP_PORT")
           + "/"
-          + System.getenv("POSTGRES_PORT_5432_TCP_DBNAME")
-          + "?ssl=true&sslmode=require";
+          + System.getenv("POSTGRES_PORT_5432_TCP_DBNAME");
+ //         + "?ssl=true&sslmode=require";
   public java.sql.Connection db_con;
 
   @Override
